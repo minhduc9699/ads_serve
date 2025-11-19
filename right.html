@@ -1,45 +1,46 @@
 <style>
-  /* CSS Reset for WordPress compatibility - RIGHT BANNER */
-  .aff-banner-advertnative-right,
-  .aff-banner-advertnative-right * {
+  /* CSS Reset for WordPress compatibility - CENTER BANNER */
+  .aff-banner-advertnative-center,
+  .aff-banner-advertnative-center * {
     box-sizing: border-box !important;
     margin: 0 !important;
     padding: 0 !important;
   }
 
-  .aff-banner-advertnative-right {
+  .aff-banner-advertnative-center {
     position: fixed !important;
     bottom: calc(33.33vh) !important;
-    right: 20px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
     z-index: 99999 !important;
     cursor: pointer !important;
-    animation: aff-banner-advertnative-bounceIn-right 0.8s ease-out, aff-banner-advertnative-wiggle-right 0.6s ease-in-out 2.5s infinite !important;
+    animation: aff-banner-advertnative-bounceIn-center 0.8s ease-out, aff-banner-advertnative-wiggle-center 0.6s ease-in-out 2.5s infinite !important;
     transition: transform 0.3s ease !important;
   }
 
-  .aff-banner-advertnative-right::before {
+  .aff-banner-advertnative-center::before {
     content: '';
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 120px;
-    height: 120px;
+    width: 90px;
+    height: 90px;
     border-radius: 50% !important;
     background: rgba(255, 107, 107, 0.3);
     transform: translate(-50%, -50%);
-    animation: aff-banner-advertnative-circularPulse-right 2s infinite 1s;
+    animation: aff-banner-advertnative-circularPulse-center 2s infinite 1s;
     pointer-events: none;
     z-index: -1;
   }
 
-  .aff-banner-advertnative-right img {
-    width: 120px !important;
-    height: 120px !important;
+  .aff-banner-advertnative-center img {
+    width: 90px !important;
+    height: 90px !important;
     border-radius: 50% !important;
     display: block !important;
   }
 
-  .aff-banner-advertnative-right .aff-banner-advertnative-close-right {
+  .aff-banner-advertnative-center .aff-banner-advertnative-close-center {
     position: absolute;
     top: -8px;
     right: -8px;
@@ -64,31 +65,31 @@
     box-sizing: border-box !important;
   }
 
-  .aff-banner-advertnative-right .aff-banner-advertnative-close-right:hover {
+  .aff-banner-advertnative-center .aff-banner-advertnative-close-center:hover {
     background: #ff5252;
     transform: scale(1.1);
     box-shadow: 0 4px 12px rgba(0,0,0,0.3);
   }
 
-  @keyframes aff-banner-advertnative-bounceIn-right {
+  @keyframes aff-banner-advertnative-bounceIn-center {
     0% {
       opacity: 0;
-      transform: scale(0.3) translateY(-50px);
+      transform: translateX(-50%) scale(0.3) translateY(-50px);
     }
     50% {
       opacity: 1;
-      transform: scale(1.05) translateY(10px);
+      transform: translateX(-50%) scale(1.05) translateY(10px);
     }
     70% {
-      transform: scale(0.9) translateY(-5px);
+      transform: translateX(-50%) scale(0.9) translateY(-5px);
     }
     100% {
       opacity: 1;
-      transform: scale(1) translateY(0);
+      transform: translateX(-50%) scale(1) translateY(0);
     }
   }
 
-  @keyframes aff-banner-advertnative-circularPulse-right {
+  @keyframes aff-banner-advertnative-circularPulse-center {
     0% {
       transform: translate(-50%, -50%) scale(1);
       opacity: 0.7;
@@ -103,37 +104,36 @@
     }
   }
 
-  @keyframes aff-banner-advertnative-wiggle-right {
-    0%, 100% { transform: rotate(0deg) scale(1); }
-    10% { transform: rotate(-8deg) scale(1.05); }
-    20% { transform: rotate(7deg) scale(1.05); }
-    30% { transform: rotate(-7deg) scale(1.05); }
-    40% { transform: rotate(6deg) scale(1.05); }
-    50% { transform: rotate(-4deg) scale(1.03); }
-    60% { transform: rotate(4deg) scale(1.03); }
-    70% { transform: rotate(-2deg) scale(1.02); }
-    80% { transform: rotate(2deg) scale(1.02); }
-    90% { transform: rotate(-1deg) scale(1.01); }
+  @keyframes aff-banner-advertnative-wiggle-center {
+    0%, 100% { transform: translateX(-50%) rotate(0deg) scale(1); }
+    10% { transform: translateX(-50%) rotate(-8deg) scale(1.05); }
+    20% { transform: translateX(-50%) rotate(7deg) scale(1.05); }
+    30% { transform: translateX(-50%) rotate(-7deg) scale(1.05); }
+    40% { transform: translateX(-50%) rotate(6deg) scale(1.05); }
+    50% { transform: translateX(-50%) rotate(-4deg) scale(1.03); }
+    60% { transform: translateX(-50%) rotate(4deg) scale(1.03); }
+    70% { transform: translateX(-50%) rotate(-2deg) scale(1.02); }
+    80% { transform: translateX(-50%) rotate(2deg) scale(1.02); }
+    90% { transform: translateX(-50%) rotate(-1deg) scale(1.01); }
   }
 
   /* Mobile responsive - Thu nhỏ banner trên điện thoại */
   @media only screen and (max-width: 768px) {
-    .aff-banner-advertnative-right {
+    .aff-banner-advertnative-center {
       bottom: calc(25vh) !important;
-      right: 15px !important;
     }
 
-    .aff-banner-advertnative-right::before {
+    .aff-banner-advertnative-center::before {
       width: 150px !important;
       height: 150px !important;
     }
 
-    .aff-banner-advertnative-right img {
+    .aff-banner-advertnative-center img {
       width: 150px !important;
       height: 150px !important;
     }
 
-    .aff-banner-advertnative-right .aff-banner-advertnative-close-right {
+    .aff-banner-advertnative-center .aff-banner-advertnative-close-center {
       width: 20px !important;
       height: 20px !important;
       font-size: 14px !important;
@@ -145,22 +145,21 @@
 
   /* Extra small mobile - Thu nhỏ hơn nữa */
   @media only screen and (max-width: 480px) {
-    .aff-banner-advertnative-right {
+    .aff-banner-advertnative-center {
       bottom: calc(20vh) !important;
-      right: 10px !important;
     }
 
-    .aff-banner-advertnative-right::before {
+    .aff-banner-advertnative-center::before {
       width: 130px !important;
       height: 130px !important;
     }
 
-    .aff-banner-advertnative-right img {
+    .aff-banner-advertnative-center img {
       width: 130px !important;
       height: 130px !important;
     }
 
-    .aff-banner-advertnative-right .aff-banner-advertnative-close-right {
+    .aff-banner-advertnative-center .aff-banner-advertnative-close-center {
       width: 18px !important;
       height: 18px !important;
       font-size: 12px !important;
@@ -172,21 +171,21 @@
 
 </style>
 
-<!-- Banner bên phải -->
-<div class="aff-banner-advertnative-right" id="affBannerAdvertnativeRight">
+<!-- Banner ở giữa -->
+<div class="aff-banner-advertnative-center" id="affBannerAdvertnativeCenter">
   <img src="https://ik.imagekit.io/blgqpamjtp/ChatGPT%20Image%20Nov%2013,%202025,%2012_31_57%20AM.png?updatedAt=1763003190157" alt="Flash Sale">
-  <button class="aff-banner-advertnative-close-right" id="affBannerAdvertnativeCloseRight">×</button>
+  <button class="aff-banner-advertnative-close-center" id="affBannerAdvertnativeCloseCenter">×</button>
 </div>
 
 <script>
 (function(){
-  // Extract parameters from URL path: /ads/right.html/ref_code/image_url
+  // Extract parameters from URL path: /ads/center.html/ref_code/image_url
   const pathParts = window.location.pathname.split('/').filter(p => p);
   let refCode = '';
   let imageUrl = 'https://ik.imagekit.io/blgqpamjtp/ChatGPT%20Image%20Nov%2013,%202025,%2012_31_57%20AM.png?updatedAt=1763003190157';
   
-  // Find the index of right.html in the path
-  const htmlIndex = pathParts.findIndex(p => p.includes('right.html'));
+  // Find the index of center.html in the path
+  const htmlIndex = pathParts.findIndex(p => p.includes('center.html'));
   if (htmlIndex !== -1) {
     if (pathParts[htmlIndex + 1]) {
       refCode = pathParts[htmlIndex + 1];
@@ -197,9 +196,9 @@
     }
   }
 
-  const banner = document.getElementById('affBannerAdvertnativeRight');
-  const closeBtn = document.getElementById('affBannerAdvertnativeCloseRight');
-  const imgElement = banner.querySelector('img');
+  const bannerCenter = document.getElementById('affBannerAdvertnativeCenter');
+  const closeBtnCenter = document.getElementById('affBannerAdvertnativeCloseCenter');
+  const imgElement = bannerCenter.querySelector('img');
   
   // Set image URL if provided
   if (imageUrl) {
@@ -207,29 +206,29 @@
   }
   
   // Build link with ref_code
-  const link = refCode ? `https://s.shopee.vn/${refCode}` : 'https://s.shopee.vn/5VMxs78ckR';
-  const clickKey = 'affBannerAdvertnativeClickedRight';
+  const link = refCode ? `https://s.shopee.vn/${refCode}` : 'https://s.shopee.vn/30g9eLlYgx';
+  const clickKeyCenter = 'affBannerAdvertnativeClickedCenter';
 
-  banner.addEventListener('click', () => {
-    if (!sessionStorage.getItem(clickKey)) {
-      sessionStorage.setItem(clickKey, 'clicked');
+  bannerCenter.addEventListener('click', () => {
+    if (!sessionStorage.getItem(clickKeyCenter)) {
+      sessionStorage.setItem(clickKeyCenter, 'clicked');
       window.open(link, '_blank');
     } else {
-      banner.remove();
+      bannerCenter.remove();
     }
   });
 
-  closeBtn.addEventListener('click', (e) => {
+  closeBtnCenter.addEventListener('click', (e) => {
     e.stopPropagation();
     e.preventDefault();
 
-    const closeKey = 'affBannerAdvertnativeClosedRight';
+    const closeKeyCenter = 'affBannerAdvertnativeClosedCenter';
 
-    if (!sessionStorage.getItem(closeKey)) {
-      sessionStorage.setItem(closeKey, 'clicked');
+    if (!sessionStorage.getItem(closeKeyCenter)) {
+      sessionStorage.setItem(closeKeyCenter, 'clicked');
       window.open(link, '_blank');
     } else {
-      banner.remove();
+      bannerCenter.remove();
     }
   });
 
