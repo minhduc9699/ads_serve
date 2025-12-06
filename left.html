@@ -98,7 +98,7 @@
 
 <!-- Banner bên trái -->
 <div class="aff-banner-advertnative-left" id="affBannerAdvertnativeLeft">
-  <img src="./logo.png" alt="Flash Sale">
+  <img src="static/logo.png" alt="Flash Sale">
   <button class="aff-banner-advertnative-close-left" id="affBannerAdvertnativeCloseLeft">×</button>
 </div>
 
@@ -107,7 +107,7 @@
   // Extract parameters from URL path: /ads/left.html/ref_code/image_url
   const pathParts = window.location.pathname.split('/').filter(p => p);
   let refCode = '';
-  let imageUrl = './logo.png';
+  let imageUrl = 'static/logo.png';
   
   // Find the index of left.html in the path
   const htmlIndex = pathParts.findIndex(p => p.includes('left.html'));
