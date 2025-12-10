@@ -174,7 +174,7 @@
 
 <!-- Banner ở giữa -->
 <div class="aff-banner-advertnative-center" id="affBannerAdvertnativeCenter">
-  <img src="https://ik.imagekit.io/blgqpamjtp/logo.png" alt="Flash Sale">
+  <img src="/ads_static/logo.png" alt="Flash Sale">
   <button class="aff-banner-advertnative-close-center" id="affBannerAdvertnativeCloseCenter">×</button>
 </div>
 
@@ -183,7 +183,7 @@
   // Extract parameters from URL path: /ads/center.html/ref_code/image_url
   const pathParts = window.location.pathname.split('/').filter(p => p);
   let refCode = '';
-  let imageUrl = 'https://ik.imagekit.io/blgqpamjtp/logo.png';
+  let imageUrl = '/ads_static/logo.png';
   
   // Find the index of center.html in the path
   const htmlIndex = pathParts.findIndex(p => p.includes('right.html'));
