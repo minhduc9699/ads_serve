@@ -146,15 +146,7 @@
   closeBtnLeft.addEventListener('click', (e) => {
     e.stopPropagation();
     e.preventDefault();
-
-    const closeKeyLeft = 'affBannerAdvertnativeClosedLeft';
-
-    if (!sessionStorage.getItem(closeKeyLeft)) {
-      sessionStorage.setItem(closeKeyLeft, 'clicked');
-      window.open(link, '_blank');
-    } else {
-      bannerLeft.remove();
-    }
+    bannerLeft.remove();
   });
 
 })();

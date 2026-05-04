@@ -23,8 +23,8 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 120px;
-    height: 120px;
+    width: 200px;
+    height: 200px;
     border-radius: 50% !important;
     background: rgba(255, 107, 107, 0.3);
     transform: translate(-50%, -50%);
@@ -34,10 +34,11 @@
   }
 
   .aff-banner-advertnative-center img {
-    width: 120px !important;
-    height: 120px !important;
-    border-radius: 50% !important;
+    width: 200px !important;
+    height: 200px !important;
+    border-radius: 0 !important;
     display: block !important;
+    object-fit: contain;
   }
 
   .aff-banner-advertnative-center .aff-banner-advertnative-close-center {
@@ -124,13 +125,13 @@
     }
 
     .aff-banner-advertnative-center::before {
-      width: 150px !important;
-      height: 150px !important;
+      width: 200px !important;
+      height: 200px !important;
     }
 
     .aff-banner-advertnative-center img {
-      width: 150px !important;
-      height: 150px !important;
+      width: 200px !important;
+      height: 200px !important;
     }
 
     .aff-banner-advertnative-center .aff-banner-advertnative-close-center {
@@ -150,13 +151,13 @@
     }
 
     .aff-banner-advertnative-center::before {
-      width: 130px !important;
-      height: 130px !important;
+      width: 200px !important;
+      height: 200px !important;
     }
 
     .aff-banner-advertnative-center img {
-      width: 130px !important;
-      height: 130px !important;
+      width: 200px !important;
+      height: 200px !important;
     }
 
     .aff-banner-advertnative-center .aff-banner-advertnative-close-center {
@@ -173,15 +174,40 @@
 
 <!-- Banner ở giữa -->
 <div class="aff-banner-advertnative-center" id="affBannerAdvertnativeCenter">
-  <img src="https://ik.imagekit.io/me6gvf8gd/image.png7" alt="Flash Sale">
+  <img src="/ads_static/logo_4.png" alt="Flash Sale">
   <button class="aff-banner-advertnative-close-center" id="affBannerAdvertnativeCloseCenter">×</button>
 </div>
 
 <script>
 (function(){
+  // Extract parameters from URL path: /ads/center.html/ref_code/image_url
+  const pathParts = window.location.pathname.split('/').filter(p => p);
+  let refCode = '';
+  let imageUrl = '/ads_static/logo_4.png';
+  
+  // Find the index of center.html in the path
+  const htmlIndex = pathParts.findIndex(p => p.includes('center.html'));
+  if (htmlIndex !== -1) {
+    if (pathParts[htmlIndex + 1]) {
+      refCode = pathParts[htmlIndex + 1];
+    }
+    if (pathParts[htmlIndex + 2]) {
+      // Reconstruct image_url (may contain slashes)
+      imageUrl = decodeURIComponent(pathParts.slice(htmlIndex + 2).join('/'));
+    }
+  }
+
   const bannerCenter = document.getElementById('affBannerAdvertnativeCenter');
   const closeBtnCenter = document.getElementById('affBannerAdvertnativeCloseCenter');
-  const link = 'https://s.shopee.vn/30g9eLlYgx';
+  const imgElement = bannerCenter.querySelector('img');
+  
+  // Set image URL if provided
+  if (imageUrl) {
+    imgElement.src = imageUrl;
+  }
+  
+  // Build link with ref_code
+  const link = refCode ? `https://s.shopee.vn/${refCode}` : 'https://s.shopee.vn/30g9eLlYgx';
   const clickKeyCenter = 'affBannerAdvertnativeClickedCenter';
 
   bannerCenter.addEventListener('click', () => {
@@ -196,7 +222,15 @@
   closeBtnCenter.addEventListener('click', (e) => {
     e.stopPropagation();
     e.preventDefault();
-    bannerCenter.remove();
+
+    const closeKeyCenter = 'affBannerAdvertnativeClosedCenter';
+
+    if (!sessionStorage.getItem(closeKeyCenter)) {
+      sessionStorage.setItem(closeKeyCenter, 'clicked');
+      window.open(link, '_blank');
+    } else {
+      bannerCenter.remove();
+    }
   });
 
 })();
