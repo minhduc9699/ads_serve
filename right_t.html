@@ -1,0 +1,367 @@
+<style>
+  /* CSS Reset for WordPress compatibility - RIGHT BANNER */
+  .aff-banner-advertnative-center,
+  .aff-banner-advertnative-center * {
+    box-sizing: border-box !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .aff-banner-advertnative-center {
+    position: fixed !important;
+    bottom: calc(33.33vh) !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    z-index: 99999 !important;
+    cursor: pointer !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 8px !important;
+    /* Ẩn ban đầu — JS sẽ show sau delay để user kịp đọc nội dung */
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+    transition: opacity 0.4s ease, visibility 0.4s ease !important;
+  }
+
+  .aff-banner-advertnative-center.is-visible {
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+    animation: aff-banner-advertnative-bounceIn-center 0.7s ease-out !important;
+  }
+
+  /* Wiggle KHÔNG infinite — JS toggle class này theo lịch giới hạn */
+  .aff-banner-advertnative-center.is-wiggling {
+    animation: aff-banner-advertnative-wiggle-center 0.7s ease-in-out !important;
+  }
+
+  .aff-banner-advertnative-image-wrapper {
+    position: relative !important;
+    width: 120px !important;
+    height: 120px !important;
+  }
+
+  .aff-banner-advertnative-image-wrapper::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 140px;
+    height: 140px;
+    border-radius: 50% !important;
+    background: rgba(255, 107, 107, 0.3);
+    transform: translate(-50%, -50%);
+    animation: aff-banner-advertnative-circularPulse-center 2.4s infinite 1s;
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  .aff-banner-advertnative-center img {
+    width: 120px !important;
+    height: 120px !important;
+    border-radius: 0 !important;
+    display: block !important;
+    object-fit: contain;
+  }
+
+  /* CTA pill — làm rõ vùng nào để click vào Shopee */
+  .aff-banner-advertnative-cta {
+    background: linear-gradient(135deg, #ff6b6b, #ee5a52) !important;
+    color: #fff !important;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
+    font-size: 13px !important;
+    font-weight: 700 !important;
+    line-height: 1 !important;
+    padding: 8px 14px !important;
+    border-radius: 20px !important;
+    box-shadow: 0 4px 12px rgba(238, 90, 82, 0.45) !important;
+    white-space: nowrap !important;
+    user-select: none !important;
+    letter-spacing: 0.2px !important;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease !important;
+  }
+
+  .aff-banner-advertnative-center:hover .aff-banner-advertnative-cta {
+    background: linear-gradient(135deg, #ff5252, #e04848) !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 6px 16px rgba(238, 90, 82, 0.55) !important;
+  }
+
+  .aff-banner-advertnative-center .aff-banner-advertnative-close-center {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background: #ff6b6b;
+    color: #fff;
+    border: 2px solid #fff;
+    border-radius: 50% !important;
+    width: 26px !important;
+    height: 26px !important;
+    font-size: 16px !important;
+    font-weight: bold !important;
+    line-height: 22px !important;
+    cursor: pointer;
+    z-index: 100000;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  .aff-banner-advertnative-center .aff-banner-advertnative-close-center:hover {
+    background: #ff5252;
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  }
+
+  @keyframes aff-banner-advertnative-bounceIn-center {
+    0% {
+      opacity: 0;
+      transform: translateX(-50%) scale(0.3) translateY(-50px);
+    }
+    50% {
+      opacity: 1;
+      transform: translateX(-50%) scale(1.05) translateY(10px);
+    }
+    70% {
+      transform: translateX(-50%) scale(0.9) translateY(-5px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(-50%) scale(1) translateY(0);
+    }
+  }
+
+  @keyframes aff-banner-advertnative-circularPulse-center {
+    0% {
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 0.7;
+    }
+    50% {
+      transform: translate(-50%, -50%) scale(1.3);
+      opacity: 0.3;
+    }
+    100% {
+      transform: translate(-50%, -50%) scale(1.6);
+      opacity: 0;
+    }
+  }
+
+  @keyframes aff-banner-advertnative-wiggle-center {
+    0%, 100% { transform: translateX(-50%) rotate(0deg) scale(1); }
+    20% { transform: translateX(-50%) rotate(-6deg) scale(1.04); }
+    40% { transform: translateX(-50%) rotate(6deg) scale(1.04); }
+    60% { transform: translateX(-50%) rotate(-4deg) scale(1.02); }
+    80% { transform: translateX(-50%) rotate(3deg) scale(1.02); }
+  }
+
+  /* Mobile responsive */
+  @media only screen and (max-width: 768px) {
+    .aff-banner-advertnative-center {
+      bottom: calc(20vh) !important;
+    }
+
+    .aff-banner-advertnative-image-wrapper {
+      width: 150px !important;
+      height: 150px !important;
+    }
+
+    .aff-banner-advertnative-image-wrapper::before {
+      width: 170px !important;
+      height: 170px !important;
+    }
+
+    .aff-banner-advertnative-center img {
+      width: 150px !important;
+      height: 150px !important;
+    }
+
+    .aff-banner-advertnative-cta {
+      font-size: 14px !important;
+      padding: 9px 16px !important;
+    }
+
+    .aff-banner-advertnative-center .aff-banner-advertnative-close-center {
+      width: 22px !important;
+      height: 22px !important;
+      font-size: 14px !important;
+      line-height: 18px !important;
+      top: -6px !important;
+      right: -6px !important;
+    }
+  }
+
+  @media only screen and (max-width: 480px) {
+    .aff-banner-advertnative-center {
+      bottom: calc(16vh) !important;
+    }
+
+    .aff-banner-advertnative-image-wrapper {
+      width: 100px !important;
+      height: 100px !important;
+    }
+
+    .aff-banner-advertnative-image-wrapper::before {
+      width: 120px !important;
+      height: 120px !important;
+    }
+
+    .aff-banner-advertnative-center img {
+      width: 100px !important;
+      height: 100px !important;
+    }
+
+    .aff-banner-advertnative-cta {
+      font-size: 12px !important;
+      padding: 7px 12px !important;
+    }
+
+    .aff-banner-advertnative-center .aff-banner-advertnative-close-center {
+      width: 20px !important;
+      height: 20px !important;
+      font-size: 13px !important;
+      line-height: 16px !important;
+      top: -5px !important;
+      right: -5px !important;
+    }
+  }
+</style>
+
+<!-- Banner -->
+<div class="aff-banner-advertnative-center"
+     id="affBannerAdvertnativeCenter"
+     role="button"
+     tabindex="0"
+     aria-label="Xem khuyến mãi trên Shopee">
+  <div class="aff-banner-advertnative-image-wrapper">
+    <img src="/ads_static/logo_4.png" alt="Khuyến mãi Shopee">
+    <button class="aff-banner-advertnative-close-center"
+            id="affBannerAdvertnativeCloseCenter"
+            type="button"
+            aria-label="Đóng quảng cáo">×</button>
+  </div>
+  <div class="aff-banner-advertnative-cta">Xem ngay →</div>
+</div>
+
+<script>
+(function(){
+  // ---------- Config ----------
+  const SHOW_DELAY_MS       = 6000;                  // Chờ 6s rồi mới show
+  const WIGGLE_INTERVAL_MS  = 25000;                 // Cách 25s wiggle 1 lần
+  const MAX_WIGGLES         = 4;                     // Tối đa 4 lần / phiên
+  const CLOSED_COOLDOWN_MS  = 12 * 60 * 60 * 1000;   // 12h sau khi user đóng
+  const CLICKED_COOLDOWN_MS = 6  * 60 * 60 * 1000;   // 6h sau khi user click vào
+  const DEFAULT_LINK        = 'https://s.shopee.vn/30g9eLlYgx';
+  const STORAGE_KEY         = 'affBannerAdvertnativeRight';
+
+  // ---------- Parse params ----------
+  const pathParts = window.location.pathname.split('/').filter(p => p);
+  let refCode  = '';
+  let imageUrl = '/ads_static/logo_4.png';
+
+  const htmlIndex = pathParts.findIndex(p => p.includes('right.html'));
+  if (htmlIndex !== -1) {
+    if (pathParts[htmlIndex + 1]) refCode = pathParts[htmlIndex + 1];
+    if (pathParts[htmlIndex + 2]) {
+      imageUrl = decodeURIComponent(pathParts.slice(htmlIndex + 2).join('/'));
+    }
+  }
+
+  const link = refCode ? `https://s.shopee.vn/${refCode}` : DEFAULT_LINK;
+
+  // ---------- Frequency cap (localStorage, fail-safe) ----------
+  function getState() {
+    try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); }
+    catch (_) { return {}; }
+  }
+  function setState(patch) {
+    try {
+      const next = Object.assign({}, getState(), patch);
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
+    } catch (_) { /* storage không khả dụng — bỏ qua */ }
+  }
+
+  const state = getState();
+  const now   = Date.now();
+  if (state.closedAt  && (now - state.closedAt)  < CLOSED_COOLDOWN_MS)  return;
+  if (state.clickedAt && (now - state.clickedAt) < CLICKED_COOLDOWN_MS) return;
+
+  // ---------- DOM refs ----------
+  const banner   = document.getElementById('affBannerAdvertnativeCenter');
+  const closeBtn = document.getElementById('affBannerAdvertnativeCloseCenter');
+  const imgEl    = banner.querySelector('img');
+  if (imageUrl) imgEl.src = imageUrl;
+
+  // ---------- Wiggle scheduler (KHÔNG infinite) ----------
+  let wiggleTimer = null;
+  let wiggleCount = 0;
+
+  function startWiggleLoop() {
+    if (wiggleTimer) clearInterval(wiggleTimer);
+    wiggleTimer = setInterval(() => {
+      if (wiggleCount >= MAX_WIGGLES || document.hidden) {
+        clearInterval(wiggleTimer);
+        wiggleTimer = null;
+        return;
+      }
+      banner.classList.add('is-wiggling');
+      setTimeout(() => banner.classList.remove('is-wiggling'), 800);
+      wiggleCount++;
+    }, WIGGLE_INTERVAL_MS);
+  }
+
+  function stopWiggleLoop() {
+    if (wiggleTimer) {
+      clearInterval(wiggleTimer);
+      wiggleTimer = null;
+    }
+  }
+
+  // ---------- Show after delay ----------
+  setTimeout(() => {
+    if (!document.body.contains(banner)) return;
+    banner.classList.add('is-visible');
+    startWiggleLoop();
+  }, SHOW_DELAY_MS);
+
+  // ---------- Handlers ----------
+  function openShopee() {
+    setState({ clickedAt: Date.now() });
+    stopWiggleLoop();
+    window.open(link, '_blank', 'noopener');
+  }
+
+  function dismiss() {
+    setState({ closedAt: Date.now() });
+    stopWiggleLoop();
+    banner.classList.remove('is-visible');
+    setTimeout(() => {
+      if (banner.parentNode) banner.parentNode.removeChild(banner);
+    }, 400);
+  }
+
+  banner.addEventListener('click', (e) => {
+    if (e.target === closeBtn || closeBtn.contains(e.target)) return;
+    openShopee();
+  });
+
+  banner.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      openShopee();
+    }
+  });
+
+  closeBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    e.preventDefault();
+    dismiss();
+  });
+})();
+</script>

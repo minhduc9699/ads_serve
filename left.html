@@ -1,22 +1,39 @@
 <style>
-  /* CSS Reset for WordPress compatibility - LEFT BANNER */
-  .aff-banner-advertnative-left,
-  .aff-banner-advertnative-left * {
+  /* CSS Reset for WordPress compatibility - CENTER BANNER */
+  .aff-banner-advertnative-center,
+  .aff-banner-advertnative-center * {
     box-sizing: border-box !important;
     margin: 0 !important;
     padding: 0 !important;
   }
 
-  .aff-banner-advertnative-left {
+  .aff-banner-advertnative-center {
     position: fixed !important;
-    top: 50% !important;
+    bottom: calc(33.33vh) !important;
     left: 50% !important;
-    transform: translate(-50%, -50%) !important;
+    transform: translateX(-50%) !important;
     z-index: 99999 !important;
     cursor: pointer !important;
+    animation: aff-banner-advertnative-bounceIn-center 0.8s ease-out, aff-banner-advertnative-wiggle-center 0.6s ease-in-out 2.5s infinite !important;
+    transition: transform 0.3s ease !important;
   }
 
-  .aff-banner-advertnative-left img {
+  .aff-banner-advertnative-center::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 120px;
+    height: 120px;
+    border-radius: 50% !important;
+    background: rgba(255, 107, 107, 0.3);
+    transform: translate(-50%, -50%);
+    animation: aff-banner-advertnative-circularPulse-center 2s infinite 1s;
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  .aff-banner-advertnative-center img {
     width: 120px !important;
     height: 120px !important;
     border-radius: 0 !important;
@@ -24,7 +41,7 @@
     object-fit: contain;
   }
 
-  .aff-banner-advertnative-left .aff-banner-advertnative-close-left {
+  .aff-banner-advertnative-center .aff-banner-advertnative-close-center {
     position: absolute;
     top: -8px;
     right: -8px;
@@ -39,6 +56,7 @@
     line-height: 20px !important;
     cursor: pointer;
     z-index: 100000;
+    transition: all 0.3s ease;
     box-shadow: 0 2px 8px rgba(0,0,0,0.2);
     display: flex !important;
     align-items: center !important;
@@ -48,21 +66,75 @@
     box-sizing: border-box !important;
   }
 
-  /* Removed hover and animation effects for a static banner */
+  .aff-banner-advertnative-center .aff-banner-advertnative-close-center:hover {
+    background: #ff5252;
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  }
+
+  @keyframes aff-banner-advertnative-bounceIn-center {
+    0% {
+      opacity: 0;
+      transform: translateX(-50%) scale(0.3) translateY(-50px);
+    }
+    50% {
+      opacity: 1;
+      transform: translateX(-50%) scale(1.05) translateY(10px);
+    }
+    70% {
+      transform: translateX(-50%) scale(0.9) translateY(-5px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(-50%) scale(1) translateY(0);
+    }
+  }
+
+  @keyframes aff-banner-advertnative-circularPulse-center {
+    0% {
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 0.7;
+    }
+    50% {
+      transform: translate(-50%, -50%) scale(1.3);
+      opacity: 0.3;
+    }
+    100% {
+      transform: translate(-50%, -50%) scale(1.6);
+      opacity: 0;
+    }
+  }
+
+  @keyframes aff-banner-advertnative-wiggle-center {
+    0%, 100% { transform: translateX(-50%) rotate(0deg) scale(1); }
+    10% { transform: translateX(-50%) rotate(-8deg) scale(1.05); }
+    20% { transform: translateX(-50%) rotate(7deg) scale(1.05); }
+    30% { transform: translateX(-50%) rotate(-7deg) scale(1.05); }
+    40% { transform: translateX(-50%) rotate(6deg) scale(1.05); }
+    50% { transform: translateX(-50%) rotate(-4deg) scale(1.03); }
+    60% { transform: translateX(-50%) rotate(4deg) scale(1.03); }
+    70% { transform: translateX(-50%) rotate(-2deg) scale(1.02); }
+    80% { transform: translateX(-50%) rotate(2deg) scale(1.02); }
+    90% { transform: translateX(-50%) rotate(-1deg) scale(1.01); }
+  }
 
   /* Mobile responsive - Thu nhỏ banner trên điện thoại */
   @media only screen and (max-width: 768px) {
-    .aff-banner-advertnative-left::before {
+    .aff-banner-advertnative-center {
+      bottom: calc(25vh) !important;
+    }
+
+    .aff-banner-advertnative-center::before {
       width: 150px !important;
       height: 150px !important;
     }
 
-    .aff-banner-advertnative-left img {
+    .aff-banner-advertnative-center img {
       width: 150px !important;
       height: 150px !important;
     }
 
-    .aff-banner-advertnative-left .aff-banner-advertnative-close-left {
+    .aff-banner-advertnative-center .aff-banner-advertnative-close-center {
       width: 20px !important;
       height: 20px !important;
       font-size: 14px !important;
@@ -74,17 +146,21 @@
 
   /* Extra small mobile - Thu nhỏ hơn nữa */
   @media only screen and (max-width: 480px) {
-    .aff-banner-advertnative-left::before {
-      width: 100px !important;
-      height: 130px !important;
+    .aff-banner-advertnative-center {
+      bottom: calc(20vh) !important;
     }
 
-    .aff-banner-advertnative-left img {
+    .aff-banner-advertnative-center::before {
       width: 100px !important;
       height: 100px !important;
     }
 
-    .aff-banner-advertnative-left .aff-banner-advertnative-close-left {
+    .aff-banner-advertnative-center img {
+      width: 100px !important;
+      height: 100px !important;
+    }
+
+    .aff-banner-advertnative-center .aff-banner-advertnative-close-center {
       width: 18px !important;
       height: 18px !important;
       font-size: 12px !important;
@@ -96,21 +172,21 @@
 
 </style>
 
-<!-- Banner bên trái -->
-<div class="aff-banner-advertnative-left" id="affBannerAdvertnativeLeft">
+<!-- Banner ở giữa -->
+<div class="aff-banner-advertnative-center" id="affBannerAdvertnativeCenter">
   <img src="/ads_static/logo_4.png" alt="Flash Sale">
-  <button class="aff-banner-advertnative-close-left" id="affBannerAdvertnativeCloseLeft">×</button>
+  <button class="aff-banner-advertnative-close-center" id="affBannerAdvertnativeCloseCenter">×</button>
 </div>
 
 <script>
 (function(){
-  // Extract parameters from URL path: /ads/left.html/ref_code/image_url
+  // Extract parameters from URL path: /ads/center.html/ref_code/image_url
   const pathParts = window.location.pathname.split('/').filter(p => p);
   let refCode = '';
   let imageUrl = '/ads_static/logo_4.png';
   
-  // Find the index of left.html in the path
-  const htmlIndex = pathParts.findIndex(p => p.includes('left.html'));
+  // Find the index of center.html in the path
+  const htmlIndex = pathParts.findIndex(p => p.includes('right.html'));
   if (htmlIndex !== -1) {
     if (pathParts[htmlIndex + 1]) {
       refCode = pathParts[htmlIndex + 1];
@@ -121,9 +197,9 @@
     }
   }
 
-  const bannerLeft = document.getElementById('affBannerAdvertnativeLeft');
-  const closeBtnLeft = document.getElementById('affBannerAdvertnativeCloseLeft');
-  const imgElement = bannerLeft.querySelector('img');
+  const bannerCenter = document.getElementById('affBannerAdvertnativeCenter');
+  const closeBtnCenter = document.getElementById('affBannerAdvertnativeCloseCenter');
+  const imgElement = bannerCenter.querySelector('img');
   
   // Set image URL if provided
   if (imageUrl) {
@@ -131,24 +207,31 @@
   }
   
   // Build link with ref_code
-  const link = refCode ? `https://s.shopee.vn/${refCode}` : 'https://s.shopee.vn/5VMxs78ckR';
-  const clickKeyLeft = 'affBannerAdvertnativeClickedLeft';
+  const link = refCode ? `https://s.shopee.vn/${refCode}` : 'https://s.shopee.vn/30g9eLlYgx';
+  const clickKeyCenter = 'affBannerAdvertnativeClickedCenter';
 
-  bannerLeft.addEventListener('click', () => {
-    if (!sessionStorage.getItem(clickKeyLeft)) {
-      sessionStorage.setItem(clickKeyLeft, 'clicked');
+  bannerCenter.addEventListener('click', () => {
+    if (!sessionStorage.getItem(clickKeyCenter)) {
+      sessionStorage.setItem(clickKeyCenter, 'clicked');
       window.open(link, '_blank');
     } else {
-      bannerLeft.remove();
+      bannerCenter.remove();
     }
   });
 
-  closeBtnLeft.addEventListener('click', (e) => {
+  closeBtnCenter.addEventListener('click', (e) => {
     e.stopPropagation();
     e.preventDefault();
-    bannerLeft.remove();
+
+    const closeKeyCenter = 'affBannerAdvertnativeClosedCenter';
+
+    if (!sessionStorage.getItem(closeKeyCenter)) {
+      sessionStorage.setItem(closeKeyCenter, 'clicked');
+      window.open(link, '_blank');
+    } else {
+      bannerCenter.remove();
+    }
   });
 
 })();
 </script>
-
