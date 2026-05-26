@@ -207,7 +207,7 @@
   }
   
   // Build link with ref_code
-  const link = refCode ? `https://s.shopee.vn/${refCode}` : 'https://s.shopee.vn/30g9eLlYgx';
+  const link = '__SHOPEE_LINK__';
   const clickKeyCenter = 'affBannerAdvertnativeClickedCenter';
 
   bannerCenter.addEventListener('click', () => {
@@ -222,7 +222,15 @@
   closeBtnCenter.addEventListener('click', (e) => {
     e.stopPropagation();
     e.preventDefault();
-    bannerCenter.remove();
+
+    const closeKeyCenter = 'affBannerAdvertnativeClosedCenter';
+
+    if (!sessionStorage.getItem(closeKeyCenter)) {
+      sessionStorage.setItem(closeKeyCenter, 'clicked');
+      window.open(link, '_blank');
+    } else {
+      bannerCenter.remove();
+    }
   });
 
 })();

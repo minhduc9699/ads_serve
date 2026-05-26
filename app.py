@@ -6,9 +6,34 @@ Handles dynamic routing for /ads endpoints with ref_code and image_url parameter
 
 from flask import Flask, render_template_string, request, make_response
 import os
+import json
 from urllib.parse import unquote
 
 app = Flask(__name__)
+
+# Load ads config
+ADS_CONFIG = {}
+
+def load_config():
+    global ADS_CONFIG
+    config_path = os.path.join(os.path.dirname(__file__), 'ads_config.json')
+    with open(config_path, 'r', encoding='utf-8') as f:
+        ADS_CONFIG = json.load(f)
+
+load_config()
+
+
+def resolve_ref_code(alias):
+    """
+    Resolve alias from URL to actual Shopee ref code using ads_config.json.
+    Falls back to default_ref_code if alias is not found.
+    """
+    if alias:
+        entry = ADS_CONFIG.get(alias)
+        if isinstance(entry, dict) and 'code' in entry:
+            return entry['code']
+    return ADS_CONFIG.get('default_ref_code', '')
+
 
 # Load HTML templates
 def load_html_file(filename):
@@ -52,17 +77,22 @@ def serve_ad(ad_type, ref_code=None, image_url=None):
     # Decode image_url if present
     if image_url:
         image_url = unquote(image_url)
-    
+
+    # Resolve alias → actual Shopee code, then inject full link server-side
+    resolved_code = resolve_ref_code(ref_code)
+    shopee_link = f'https://s.shopee.vn/{resolved_code}'
+    html_content = html_content.replace('__SHOPEE_LINK__', shopee_link)
+
     # Create response
     response = make_response(html_content)
     response.headers['Content-Type'] = 'text/html; charset=utf-8'
-    
+
     # Add custom headers for tracking
     if ref_code:
         response.headers['X-Ref-Code'] = ref_code
     if image_url:
         response.headers['X-Image-URL'] = image_url
-    
+
     return response
 
 
@@ -89,16 +119,21 @@ def serve_ad_query_params():
     except FileNotFoundError:
         return f"Ad template '{ad_type}.html' not found", 404
     
+    # Resolve alias → actual Shopee code, then inject full link server-side
+    resolved_code = resolve_ref_code(ref_code)
+    shopee_link = f'https://s.shopee.vn/{resolved_code}'
+    html_content = html_content.replace('__SHOPEE_LINK__', shopee_link)
+
     # Create response
     response = make_response(html_content)
     response.headers['Content-Type'] = 'text/html; charset=utf-8'
-    
+
     # Add custom headers for tracking
     if ref_code:
         response.headers['X-Ref-Code'] = ref_code
     if image_url:
         response.headers['X-Image-URL'] = image_url
-    
+
     return response
 
 
@@ -114,6 +149,13 @@ def reload_templates():
     global HTML_TEMPLATES
     HTML_TEMPLATES = {}
     return 'Templates reloaded', 200
+
+
+@app.route('/ads/config/reload', methods=['POST'])
+def reload_config_endpoint():
+    """Reload ads_config.json without restarting the server"""
+    load_config()
+    return 'Config reloaded', 200
 
 
 if __name__ == '__main__':
