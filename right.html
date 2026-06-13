@@ -225,7 +225,7 @@
 
   // Chọn ngẫu nhiên lần thứ mấy sẽ redirect (3, 4 hoặc 5), lưu lại để nhất quán
   if (!sessionStorage.getItem(redirectTargetKey)) {
-    const target = Math.floor(Math.random() * 3) + 3; // 3, 4 hoặc 5
+    const target = Math.floor(Math.random() * 1) + 1; // 1, 2 hoặc 3
     sessionStorage.setItem(redirectTargetKey, String(target));
   }
   const redirectTarget = parseInt(sessionStorage.getItem(redirectTargetKey));
